@@ -4,5 +4,5 @@ Tablero: https://codingstar.atlassian.net/jira/software/projects/PCCS/boards/1
 
 
 Integrantes: 
-Alessandra Ruiz Chacón  183416
-Ricardo Humberto Gómez Vázquez  183384
+183416 Alessandra Ruiz Chacón  &
+183384 Ricardo Humberto Gómez Vázquez  
