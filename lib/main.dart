@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:starclinic/XDlogin.dart';
+import 'package:petclinic/src/pages/inicio.dart';
+import 'package:petclinic/src/pages/login.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,13 +22,12 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
       ),
-      home: Center(
-        child: XDlogin(),
-        ),//MyHomePage(title: 'Flutter Demo Home Page'),
-
-    );
+      home:Center(//MyHomePage(title: 'Flutter Demo Home Page'),
+      child : Inicio(),
+      ),
+      );
   }
 }
 

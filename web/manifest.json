@@ -1,6 +1,6 @@
 {
-    "name": "starclinic",
-    "short_name": "starclinic",
+    "name": "petclinic",
+    "short_name": "petclinic",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
