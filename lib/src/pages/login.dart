@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:petclinic/main.dart';
 import 'package:petclinic/src/pages/inicio.dart';
 import 'package:petclinic/model/LoginModel.dart';
 import 'package:petclinic/src/pages/profile_page.dart';
@@ -24,7 +25,14 @@ Widget buildPassword(){
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      SizedBox(height: 10),
+      Text(
+        'Password',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
       Container(
         alignment: Alignment.centerLeft,
         decoration: BoxDecoration(
@@ -41,6 +49,9 @@ Widget buildPassword(){
         height: 60,
         child: TextField(
           obscureText: true,
+          onChanged: (value) {
+            password = value;
+          },
           style: TextStyle(
             color: Colors.black87
           ),
@@ -66,6 +77,14 @@ Widget buildEmail(){
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
+       Text(
+        'Email',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
       SizedBox(height: 10),
       Container(
         alignment: Alignment.centerLeft,
@@ -142,12 +161,12 @@ Widget buildSignUpBtn(BuildContext context){
   return GestureDetector(
     onTap: () {
       Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => Inicio(),
+     builder: (context) => Inicio(),
     ));
     },
     child: RichText(
      text: TextSpan(
-       children:[
+       /*children:[
          TextSpan(
            text: 'No tienes una cuenta?',
            style: TextStyle(
@@ -166,13 +185,13 @@ Widget buildSignUpBtn(BuildContext context){
         )
       ]
 
-     ) 
+     */) 
     ),
   );
 }
 
 singIn(String emai, String pass, BuildContext context) async{
-  String url = "http://34.239.109.204/api/v1/login/";
+  String url = "192.168.0.231:19000/user";
   Map<String, String> params = {
     "username": emai,
     "password": pass

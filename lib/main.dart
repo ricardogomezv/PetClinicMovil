@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:petclinic/src/pages/inicio.dart';
 import 'package:petclinic/src/pages/login.dart';
 
+import 'src/pages/login.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -25,7 +27,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.green,
       ),
       home:Center(//MyHomePage(title: 'Flutter Demo Home Page'),
-      child : Inicio(),
+      child : Login(),
       ),
       );
   }

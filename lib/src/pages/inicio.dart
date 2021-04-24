@@ -13,7 +13,7 @@ class NewPageUsers extends State<Inicio> {
   @override
   void initState(){
   super.initState();
-    nombresUsers = ['Ricardo Gómez','Alessandra Ruiz', 'Fernanda Ruiz', 'Erik Toala','Jorge Altuzar','Cesar Osuna','Roberto Guzman','Eduardo Paz', 'Jose Castellano', 'Ale Chacón', 'Humberto Vázquez', 'Maria Guzman', 'Jesus Gutierrez', 'Jorge Guillen', 'Pablo Ruiz', 'Gustavo Gómez', 'Karen Ruiz', 'Angel Ruiz', 'Elvia Vázquez', 'Andrea Guanez'
+    nombresUsers = ['Pelota','Croquetas', 'Bolsas', 'Pañales','Peine','Shampoo','Jabones','Cama para Mascotas'
     ];
   }
 
@@ -50,7 +50,7 @@ class Usuarios extends StatelessWidget {
       child: Center(
          child: Center(
               child: Text(nombre,  style: TextStyle(
-                  fontSize: 20.0,
+                  fontSize: 25.0,
                 ),),
           ),
       ),
