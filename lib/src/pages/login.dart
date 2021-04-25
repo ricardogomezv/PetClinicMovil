@@ -1,15 +1,18 @@
 import 'dart:convert';
 import 'dart:io';
 
+//import 'package:app/src/pages/inicio.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:petclinic/main.dart';
 import 'package:petclinic/src/pages/inicio.dart';
 import 'package:petclinic/model/LoginModel.dart';
-import 'package:petclinic/src/pages/profile_page.dart';
 import 'package:http/http.dart' as http;
 import 'package:toast/toast.dart';
+
+import '../../storage.dart';
 
 
 class Login extends StatefulWidget{
@@ -20,6 +23,7 @@ class Login extends StatefulWidget{
 
 String email = "";
 String password = "";
+var vali = 0;
 
 Widget buildPassword(){
   return Column(
@@ -132,11 +136,19 @@ Widget buildLoginBtn(BuildContext context){
     width: double.infinity,
     child: new RaisedButton(
       elevation: 5,
-      onPressed: (){
-        if (email == "" || password == ""){
-          Toast.show("Hay campos vacios", context, duration: Toast.LENGTH_LONG, gravity:  Toast.CENTER);
-        } else {
-          singIn(email, password, context);
+      onPressed: () async {
+        print("validacion:$vali");
+          await singIn (email, password);
+          print("validacion1:$vali");
+
+          if (vali==1) {
+          print("validacion2:$vali");
+          await Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Inicio()),
+       
+       ); 
+                       
         }
         
       },
@@ -190,34 +202,50 @@ Widget buildSignUpBtn(BuildContext context){
   );
 }
 
-singIn(String emai, String pass, BuildContext context) async{
-  String url = "192.168.0.231:19000/user";
-  Map<String, String> params = {
-    "username": emai,
-    "password": pass
+
+
+singIn(String emai, String pass) async{
+  print("validacionV1:$vali");
+   vali = 0;
+   print("validacionV2:$vali");
+  
+  Map<String, String> body = {
+    'user': '${emai}',
+    'password': '${pass}'
   };
 
-  Map<String, String> header = {
-    HttpHeaders.contentTypeHeader : "application/json"
-  };
+  
+  var headers = {
+  'Content-Type': 'application/x-www-form-urlencoded'
+};
+var request = http.Request('POST', Uri.parse('http://192.168.0.231:19000/user'));
+request.bodyFields = body;
+request.headers.addAll(headers);
 
-  Uri uri = Uri.parse(url);
+http.StreamedResponse response = await request.send();
 
-  final response = await  http.post(uri, headers: header, body:jsonEncode(params));
-
-  if (response.statusCode == 200){
-    String body = utf8.decode(response.bodyBytes);
-    final jsonData = jsonDecode(body);
-    LoginModel loginModel = new LoginModel(jsonData["token"], jsonData["user_id"], jsonData["email"], jsonData["name"]);
-    Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => Profile_Page(loginModel),
-    ));
-  } else if (response.statusCode == 400) {
-    Toast.show("El usuario y la contraseña no coinsiden", context, duration: Toast.LENGTH_LONG, gravity:  Toast.CENTER);
-  } else {
-    Toast.show("Hay un error en el servidor", context, duration: Toast.LENGTH_LONG, gravity:  Toast.CENTER);
+  if (response.statusCode == 200) {
+    var user = await response.stream.bytesToString();
+    var aux = user.split(':');
+    var aux2 = aux[3].split(',');
+    print("auxiliar:$aux2[0]");
+    //final Map<String, dynamic> user = jsonDecode(request.toString());
+    print(user);
+    await storage.write(key: 'token', value: aux2[0]);
+  print("validacionV3:$vali");
+    if (aux2[0] != "null"){
+      print("validacionV4:$vali");
+      vali = 1;
+    }
+    else{
+      print("validacionV5:$vali");
+     vali = 0;
+    }
   }
+  print("validacionV6:$vali");
 }
+
+
 
 
 class _Login extends State<Login>{
@@ -275,4 +303,6 @@ class _Login extends State<Login>{
       ),
     );
   }
+
+
 }

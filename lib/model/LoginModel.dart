@@ -1,5 +1,5 @@
 class LoginModel{
-    String token;
+    /*String token;
     int user_id;
     String email;
     String name;
@@ -9,5 +9,5 @@ class LoginModel{
       this.name = name;
       this.user_id = user_id;
       this.token = token;
-    }
+    }*/
 }
